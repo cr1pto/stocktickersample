@@ -6,6 +6,7 @@
 - You'll need an API key from the financeapi.net site here: https://financeapi.net/.  Update the `docker-compose.override.yaml` with the appropriate api key: `StockTickerApiConfiguration__FinanceApiKey={finance api key here}`.
 
 ## Problems getting the application to run?
+- Take a look at the scripts and run the script contents manually.  They are not idempotent sadly.  There is no error-handling either.  Please take a look at them before posting issues.
 
 ## The problem scope
 
