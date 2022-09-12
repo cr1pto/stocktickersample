@@ -1,0 +1,33 @@
+﻿@page
+@using System.Globalization
+@using StockTickerRazorPages.Pages.Shared.Component.BootstrapTable
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="container-fluid">
+    <form method="post">
+        <div class="d-flex"><label asp-for="SearchText" class="text-primary">Search Stocks</label></div>
+        <div class="d-inline-flex">
+            <div class="flex-column">
+                <input id="stockSearch" type="text" class="form-control" placeholder="Search Stocks" asp-for="SearchText" />
+            </div>
+            <div class="flex-column px-2">
+                <input id="searchBtn" class="btn btn-outline-primary" type="submit" />
+            </div>
+        </div>
+    </form>
+    <hr />
+    @{
+        if (Model.StockTickers?.QuoteResponse?.Error != null)
+        {
+            <div class="d-block">
+                <div class="d-block">Error: @Model.StockTickers?.QuoteResponse.Error</div>
+            </div>
+        }
+    }
+    <div class="d-flex">
+        @await Component.InvokeAsync(nameof(BootstrapTable), @Model?.StockTickers?.QuoteResponse)
+    </div>
+</div>

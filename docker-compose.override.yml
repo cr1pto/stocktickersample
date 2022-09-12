@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  stocktickerrazorpages:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.aspnet/https/{certificate file name here}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password={certificate password}
+      - StockTickerApiConfiguration__ApiRootAddress=https://StockTickerApi
+      - StockTickerApiConfiguration__FinanceApiKey={finance api key here}
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  stocktickerapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.aspnet/https/{certificate file name here}
+      - ASPNETCORE_Kestrel__Certificates__Default__Password={certificate password}
+      - StockTickerApiConfiguration__ApiRootAddress=https://StockTickerApi
+      - StockTickerApiConfiguration__FinanceApiKey={finance api key here}
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

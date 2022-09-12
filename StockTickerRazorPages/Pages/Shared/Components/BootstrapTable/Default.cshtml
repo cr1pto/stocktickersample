@@ -1,0 +1,69 @@
+﻿@model StockTicker.Lib.Common.Models.QuoteResponse
+
+    <table class="table table-responsive table-hover table-striped">
+            <thead class="table-dark table-header">
+                <tr>
+                    <th>Name</th>
+                    <th>Stock Ticker Symbol</th>
+                    <th>Post Market Price</th>
+                    <th>Current Year Price - EPS</th>
+                    <th>Current Year EPS</th>
+                    <th>EPS Forward</th>
+                    <th>EPS Trailing Twelve Months</th>
+                    <th>Trailing PE</th>
+                    <th>Tradeable?</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model?.Result == null || Model?.Result?.Count() == 0)
+                    {
+                        <tr>
+                            <td>No results.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var tickerData in Model.Result)
+                        {
+                            if (@tickerData.Tradeable != null && @tickerData.Tradeable.Value)
+                            {
+                                <tr class="bg-success">
+                                    <td>@tickerData.DisplayName</td>
+                                    <td>@tickerData.Symbol</td>
+                                    <td>@tickerData.PostMarketPrice?.ToString("C")</td>
+                                    <td>@tickerData.PriceEpsCurrentYear?.ToString("C")</td>
+                                    <td>@tickerData.EpsCurrentYear</td>
+                                    <td>@tickerData.EpsForward</td>
+                                    <td>@tickerData.EpsTrailingTwelveMonths</td>
+                                    <td>@tickerData.TrailingPe</td>
+                                    <td>@(tickerData.Tradeable != null && tickerData.Tradeable.Value ? "YES" : "NO")</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>@tickerData.DisplayName</td>
+                                    <td>@tickerData.Symbol</td>
+                                    <td>@tickerData.PostMarketPrice?.ToString("C")</td>
+                                    <td>@tickerData.PriceEpsCurrentYear?.ToString("C")</td>
+                                    <td>@tickerData.EpsCurrentYear</td>
+                                    <td>@tickerData.EpsForward</td>
+                                    <td>@tickerData.EpsTrailingTwelveMonths</td>
+                                    <td>@tickerData.TrailingPe</td>
+                                    <td>@(tickerData.Tradeable != null && tickerData.Tradeable.Value ? "YES" : "NO")</td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+            </tbody>
+        </table>
